@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: pontual
+  # Datasource
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    # HikariCP
+    hikari:
+      minimum-idle: 0
+      maximum-pool-size: 24
+      max-lifetime: 600000 # 10 minutes
+      auto-commit: false
+  jpa:
+    # Hibernate
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false # Disables OSIV anti-pattern (https://vladmihalcea.com/the-open-session-in-view-anti-pattern)
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+          batch_size: 30
+        order_inserts: true
+        order_updates: true
+        connection:
+          provider_disables_autocommit: true
+        query:
+          in_clause_parameter_padding: true
+          fail_on_pagination_over_collection_fetch: true
+          plan_cache_max_size: 4096
+logging:
+  level:
+    net:
+      ttddyy:
+        dsproxy:
+          listener: info # Uses datasource-proxy for logging SQL statements instead of Hibernate (https://vladmihalcea.com/the-best-way-to-log-jdbc-statements)
+server:
+  tomcat:
+    remoteip:
+      # HTTPS Settings
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+  compression:
+    enabled: true
+    mime-types: application/json

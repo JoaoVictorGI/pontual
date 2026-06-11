@@ -1,6 +1,9 @@
 spring:
   application:
     name: pontual
+  threads:
+    virtual:
+      enabled: true
   # Datasource
   datasource:
     url: ${DB_URL}

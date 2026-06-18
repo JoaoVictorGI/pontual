@@ -14,6 +14,8 @@ public interface AppointmentRepository extends JpaRepository<AppointmentEntity, 
     SELECT COUNT(*) > 0
     FROM AppointmentEntity a
     WHERE a.startsAt < :endsAt AND a.endsAt > :startsAt
+    AND a.providerId = :providerId
     """)
-    boolean existsOverlappingAppointment(@Param("startsAt") Instant startsAt, @Param("endsAt") Instant endsAt);
+    boolean existsOverlappingAppointment(
+            @Param("startsAt") Instant startsAt, @Param("endsAt") Instant endsAt, @Param("providerId") UUID providerId);
 }

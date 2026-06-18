@@ -37,8 +37,8 @@ class AppointmentServiceTest {
 
         var mappedAppointment = new AppointmentEntity(
                 null,
-                request.professionalId(),
-                request.clientId(),
+                request.providerId(),
+                request.customerId(),
                 request.startsAt(),
                 request.endsAt(),
                 null,
@@ -47,8 +47,8 @@ class AppointmentServiceTest {
 
         var savedAppointment = new AppointmentEntity(
                 UUID.randomUUID(),
-                request.professionalId(),
-                request.clientId(),
+                request.providerId(),
+                request.customerId(),
                 request.startsAt(),
                 request.endsAt(),
                 AppointmentStatus.SCHEDULED,
@@ -58,7 +58,7 @@ class AppointmentServiceTest {
         var response = new ScheduleAppointmentResponse(
                 savedAppointment.getId(), savedAppointment.getStartsAt(), savedAppointment.getEndsAt());
 
-        when(repository.existsOverlappingAppointment(request.startsAt(), request.endsAt()))
+        when(repository.existsOverlappingAppointment(request.startsAt(), request.endsAt(), request.providerId()))
                 .thenReturn(false);
 
         when(map.scheduleAppointmentRequestToAppointment(any(ScheduleAppointmentRequest.class)))
@@ -79,7 +79,7 @@ class AppointmentServiceTest {
         var request = new ScheduleAppointmentRequest(
                 UUID.randomUUID(), UUID.randomUUID(), startsAt, startsAt.plus(1, ChronoUnit.HOURS));
 
-        when(repository.existsOverlappingAppointment(request.startsAt(), request.endsAt()))
+        when(repository.existsOverlappingAppointment(request.startsAt(), request.endsAt(), request.providerId()))
                 .thenReturn(true);
 
         assertThatThrownBy(() -> service.scheduleAppointment(request))

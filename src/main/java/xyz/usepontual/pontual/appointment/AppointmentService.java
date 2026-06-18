@@ -17,7 +17,8 @@ public class AppointmentService {
     }
 
     public ScheduleAppointmentResponse scheduleAppointment(ScheduleAppointmentRequest appointment) {
-        if (repository.existsOverlappingAppointment(appointment.startsAt(), appointment.endsAt())) {
+        if (repository.existsOverlappingAppointment(
+                appointment.startsAt(), appointment.endsAt(), appointment.providerId())) {
             throw new TimeAlreadyScheduledException("This time is already scheduled");
         }
 

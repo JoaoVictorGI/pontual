@@ -23,10 +23,10 @@ public class AppointmentEntity {
     private UUID id;
 
     @Column(nullable = false)
-    private UUID professionalId;
+    private UUID providerId;
 
     @Column(nullable = false)
-    private UUID clientId;
+    private UUID customerId;
 
     @Column(nullable = false)
     private Instant startsAt;
@@ -51,16 +51,16 @@ public class AppointmentEntity {
 
     public AppointmentEntity(
             UUID id,
-            UUID professionalId,
-            UUID clientId,
+            UUID providerId,
+            UUID customerId,
             Instant startsAt,
             Instant endsAt,
             AppointmentStatus status,
             Instant createdAt,
             Instant updatedAt) {
         this.id = id;
-        this.professionalId = professionalId;
-        this.clientId = clientId;
+        this.providerId = providerId;
+        this.customerId = customerId;
         this.startsAt = startsAt;
         this.endsAt = endsAt;
         this.status = status;
@@ -76,20 +76,20 @@ public class AppointmentEntity {
         this.id = id;
     }
 
-    public UUID getProfessionalId() {
-        return professionalId;
+    public UUID getProviderId() {
+        return providerId;
     }
 
-    public void setProfessionalId(UUID professionalId) {
-        this.professionalId = professionalId;
+    public void setProviderId(UUID providerId) {
+        this.providerId = providerId;
     }
 
-    public UUID getClientId() {
-        return clientId;
+    public UUID getCustomerId() {
+        return customerId;
     }
 
-    public void setClientId(UUID clientId) {
-        this.clientId = clientId;
+    public void setCustomerId(UUID customerId) {
+        this.customerId = customerId;
     }
 
     public Instant getStartsAt() {

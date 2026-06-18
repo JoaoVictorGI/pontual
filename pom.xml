@@ -31,6 +31,7 @@
     <spring-modulith.version>2.0.6</spring-modulith.version>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
     <spotless.version>3.6.0</spotless.version>
+    <jacoco.version>0.8.15</jacoco.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -109,6 +110,11 @@
       <version>${org.mapstruct.version}</version>
     </dependency>
     <dependency>
+      <groupId>net.ttddyy</groupId>
+      <artifactId>datasource-proxy</artifactId>
+      <version>1.11.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa-test</artifactId>
       <scope>test</scope>
@@ -165,23 +171,36 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+
+        <configuration>
+          <image>
+            <builder>bellsoft/buildpacks.builder:musl</builder>
+            <env>
+              <BP_SPRING_AOT_ENABLED>true</BP_SPRING_AOT_ENABLED>
+            </env>
+          </image>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>process-aot</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>1.8</source>
-          <!-- depending on your project -->
-          <target>1.8</target>
-          <!-- depending on your project -->
+          <source>${java.version}</source>
+          <target>${java.version}</target>
           <annotationProcessorPaths>
             <path>
               <groupId>org.mapstruct</groupId>
               <artifactId>mapstruct-processor</artifactId>
               <version>${org.mapstruct.version}</version>
             </path>
-            <!-- other annotation processors -->
           </annotationProcessorPaths>
         </configuration>
       </plugin>
@@ -236,6 +255,61 @@
               <goal>apply</goal>
             </goals>
             <phase>compile</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+
+        <configuration>
+          <excludes>
+            <exclude>**/*Application*</exclude>
+            <exclude>**/dto/**</exclude>
+            <exclude>**/*Entity*</exclude>
+            <exclude>**/*MapperImpl*</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <phase>verify</phase>
+          </execution>
+          <execution>
+            <id>check</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <counter>BRANCH</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.80</minimum>
+                    </limit>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.80</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
           </execution>
         </executions>
       </plugin>

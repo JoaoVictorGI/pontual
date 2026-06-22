@@ -2,6 +2,7 @@ package xyz.usepontual.pontual.appointment;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +35,7 @@ public class AppointmentEntity {
     @Column(nullable = false)
     private Instant endsAt;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(nullable = false, columnDefinition = "appointment_status")
     private AppointmentStatus status;

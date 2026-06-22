@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface AppointmentRepository extends JpaRepository<AppointmentEntity, UUID> {
 
     @Query("""
-    SELECT COUNT(*) > 0
+    SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END
     FROM AppointmentEntity a
     WHERE a.startsAt < :endsAt AND a.endsAt > :startsAt
     AND a.providerId = :providerId

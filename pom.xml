@@ -283,14 +283,14 @@
             <goals>
               <goal>report</goal>
             </goals>
-            <phase>verify</phase>
+            <phase>test</phase>
           </execution>
           <execution>
             <id>check</id>
             <goals>
               <goal>check</goal>
             </goals>
-            <phase>verify</phase>
+            <phase>test</phase>
             <configuration>
               <rules>
                 <rule>

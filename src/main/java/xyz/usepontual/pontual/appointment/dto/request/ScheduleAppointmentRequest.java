@@ -1,13 +1,18 @@
 package xyz.usepontual.pontual.appointment.dto.request;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.UUID;
 
 public record ScheduleAppointmentRequest(
-        @NotBlank UUID providerId,
-        @NotBlank UUID customerId,
-        @NotEmpty @Future Instant startsAt,
-        @NotEmpty @Future Instant endsAt) {}
+        @NotNull UUID providerId,
+        @NotNull UUID customerId,
+        @NotNull @Future Instant startsAt,
+        @NotNull @Future Instant endsAt) {
+
+    @AssertTrue(message = "endsAt must be after startsAt") public boolean isEndsAtAfterStartsAt() {
+        return startsAt != null && endsAt != null && endsAt.isAfter(startsAt);
+    }
+}

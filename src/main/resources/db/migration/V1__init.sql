@@ -59,5 +59,6 @@ CREATE
             updated_at TIMESTAMPTZ NOT NULL,
             CONSTRAINT pk_appointment PRIMARY KEY(id),
             CONSTRAINT fk_provider FOREIGN KEY(provider_id) REFERENCES provider(id),
-            CONSTRAINT fk_customer FOREIGN KEY(customer_id) REFERENCES usr(id)
+            CONSTRAINT fk_customer FOREIGN KEY(customer_id) REFERENCES usr(id),
+            CONSTRAINT check_ends_at_is_greater_than_starts_at CHECK (ends_at >= starts_at)
         );

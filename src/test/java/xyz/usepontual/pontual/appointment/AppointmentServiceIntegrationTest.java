@@ -52,10 +52,12 @@ class AppointmentServiceIntegrationTest {
 
     @Test
     void shouldThrowExceptionWhenOverlapExists() {
-        var startsAt = Instant.now().plus(4, ChronoUnit.DAYS).truncatedTo(ChronoUnit.MICROS);
+        var startsAt = Instant.now().plus(5, ChronoUnit.DAYS).truncatedTo(ChronoUnit.MICROS);
         var endsAt = startsAt.plus(1, ChronoUnit.HOURS);
 
         var request = new ScheduleAppointmentRequest(PROVIDER_ID, CUSTOMER_ID, startsAt, endsAt);
+
+        service.scheduleAppointment(request);
 
         assertThatThrownBy(() -> service.scheduleAppointment(request))
                 .isInstanceOf(TimeAlreadyScheduledException.class)

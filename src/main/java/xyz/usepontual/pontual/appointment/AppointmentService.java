@@ -1,5 +1,6 @@
 package xyz.usepontual.pontual.appointment;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import xyz.usepontual.pontual.appointment.dto.request.ScheduleAppointmentRequest;
 import xyz.usepontual.pontual.appointment.dto.response.ScheduleAppointmentResponse;
@@ -16,6 +17,7 @@ public class AppointmentService {
         this.map = map;
     }
 
+    @Transactional
     public ScheduleAppointmentResponse scheduleAppointment(ScheduleAppointmentRequest appointment) {
         if (repository.existsOverlappingAppointment(
                 appointment.startsAt(), appointment.endsAt(), appointment.providerId())) {

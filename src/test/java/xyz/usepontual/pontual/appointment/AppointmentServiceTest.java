@@ -35,15 +35,11 @@ class AppointmentServiceTest {
         var request = new ScheduleAppointmentRequest(
                 UUID.randomUUID(), UUID.randomUUID(), startsAt, startsAt.plus(1, ChronoUnit.HOURS));
 
-        var mappedAppointment = new AppointmentEntity(
-                null,
-                request.providerId(),
-                request.customerId(),
-                request.startsAt(),
-                request.endsAt(),
-                null,
-                null,
-                null);
+        var mappedAppointment = new AppointmentEntity();
+        mappedAppointment.setProviderId(request.providerId());
+        mappedAppointment.setCustomerId(request.customerId());
+        mappedAppointment.setStartsAt(request.startsAt());
+        mappedAppointment.setEndsAt(request.endsAt());
 
         var savedAppointment = new AppointmentEntity(
                 UUID.randomUUID(),

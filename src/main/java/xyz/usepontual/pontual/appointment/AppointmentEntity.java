@@ -48,6 +48,7 @@ public class AppointmentEntity {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @SuppressWarnings("NullAway.Init")
     public AppointmentEntity() {}
 
     public AppointmentEntity(

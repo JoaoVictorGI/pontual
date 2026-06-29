@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.0.6</version>
+    <version>4.1.0</version>
     <relativePath/>
     <!-- lookup parent from repository -->
   </parent>
@@ -28,9 +28,9 @@
   </scm>
   <properties>
     <java.version>25</java.version>
-    <spring-modulith.version>2.0.6</spring-modulith.version>
+    <spring-modulith.version>2.1.0</spring-modulith.version>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
-    <spotless.version>3.6.0</spotless.version>
+    <spotless.version>3.7.0</spotless.version>
     <jacoco.version>0.8.15</jacoco.version>
   </properties>
   <dependencyManagement>
@@ -191,7 +191,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.15.0</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
@@ -310,6 +310,20 @@
                 </rule>
               </rules>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>am.ik.maven</groupId>
+        <artifactId>nullability-maven-plugin</artifactId>
+        <version>0.4.0</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <goals>
+              <goal>configure</goal>
+              <goal>generate-package-info</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

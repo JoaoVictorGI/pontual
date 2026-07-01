@@ -2,10 +2,13 @@ package xyz.usepontual.pontual.appointment;
 
 import java.time.Instant;
 import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import xyz.usepontual.pontual.appointment.dto.response.CustomerAppointmentsResponse;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<AppointmentEntity, UUID> {
@@ -18,4 +21,6 @@ public interface AppointmentRepository extends JpaRepository<AppointmentEntity, 
     """)
     boolean existsOverlappingAppointment(
             @Param("startsAt") Instant startsAt, @Param("endsAt") Instant endsAt, @Param("providerId") UUID providerId);
+
+    Page<CustomerAppointmentsResponse> findByCustomerId(UUID customerId, Pageable pageable);
 }

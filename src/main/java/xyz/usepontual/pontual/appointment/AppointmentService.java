@@ -1,8 +1,12 @@
 package xyz.usepontual.pontual.appointment;
 
 import jakarta.transaction.Transactional;
+import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import xyz.usepontual.pontual.appointment.dto.request.ScheduleAppointmentRequest;
+import xyz.usepontual.pontual.appointment.dto.response.CustomerAppointmentsResponse;
 import xyz.usepontual.pontual.appointment.dto.response.ScheduleAppointmentResponse;
 import xyz.usepontual.pontual.appointment.exception.TimeAlreadyScheduledException;
 
@@ -28,5 +32,9 @@ public class AppointmentService {
         newAppointment.setStatus(AppointmentStatus.SCHEDULED);
 
         return map.appointmentToScheduleAppointmentResponse(repository.save(newAppointment));
+    }
+
+    public Page<CustomerAppointmentsResponse> findCustomerAppointments(UUID customerId, Pageable pageable) {
+        return repository.findByCustomerId(customerId, pageable);
     }
 }

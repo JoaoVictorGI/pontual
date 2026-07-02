@@ -33,9 +33,8 @@ jobs:
         id: jacoco
         uses: madrapps/jacoco-report@v1.8.0
         with:
-          paths: |
-            ${{ github.workspace }}/target/site/jacoco/jacoco.xml
-            token: ${{ secrets.GITHUB_TOKEN }}
-            min-coverage-overall: 80
-            min-coverage-changed-lines: 80
-            coverage-counter-type: BRANCH
+          paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
+          min-coverage-changed-lines: 80
+          coverage-counter-type: BRANCH

@@ -1,6 +1,9 @@
 name: Build
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -18,3 +21,6 @@ jobs:
 
       - name: Run spotless:check
         run: ./mvnw -B spotless:check
+
+      - name: Run tests
+        run: ./mvnw -B verify

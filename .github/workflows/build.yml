@@ -18,6 +18,7 @@ jobs:
         with:
           java-version: "25"
           distribution: "temurin"
+          cache: "maven"
 
       - name: Run spotless:check
         run: ./mvnw -B spotless:check

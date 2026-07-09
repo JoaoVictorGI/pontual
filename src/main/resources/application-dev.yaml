@@ -1,0 +1,6 @@
+logging:
+  level:
+    net:
+      ttddyy:
+        dsproxy:
+          listener: debug # Uses datasource-proxy for logging SQL statements instead of Hibernate (https://vladmihalcea.com/the-best-way-to-log-jdbc-statements)

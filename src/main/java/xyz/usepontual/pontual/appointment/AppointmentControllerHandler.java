@@ -1,4 +1,4 @@
-package xyz.usepontual.pontual.appointment.exception;
+package xyz.usepontual.pontual.appointment;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -7,11 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import xyz.usepontual.pontual.appointment.exception.TimeAlreadyScheduledException;
 
 @RestControllerAdvice
 public class AppointmentControllerHandler {
 
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(AppointmentControllerHandler.class);
 
     @ExceptionHandler(TimeAlreadyScheduledException.class)
     ProblemDetail handleTimeAlreadyScheduledException(TimeAlreadyScheduledException e, HttpServletRequest request) {

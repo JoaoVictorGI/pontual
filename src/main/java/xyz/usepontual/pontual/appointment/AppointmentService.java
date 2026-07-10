@@ -16,7 +16,7 @@ public class AppointmentService {
     }
 
     @Transactional
-    ScheduleAppointmentResponse schedule(ScheduleAppointmentRequest request) {
+    public ScheduleAppointmentResponse schedule(ScheduleAppointmentRequest request) {
         if (repository.existsOverlappingAppointment(request.startsAt(), request.endsAt(), request.providerId())) {
             throw new TimeAlreadyScheduledException(
                     "Time slot overlaps with an existing appointment for this provider");

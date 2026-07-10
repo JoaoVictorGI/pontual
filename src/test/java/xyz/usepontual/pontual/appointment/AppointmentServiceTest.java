@@ -31,6 +31,7 @@ class AppointmentServiceTest {
         var request = new ScheduleAppointmentRequest(UUID.randomUUID(), UUID.randomUUID(), startsAt, endsAt);
 
         var savedAppointment = ScheduleAppointmentRequest.toEntity(request);
+        savedAppointment.setId(UUID.randomUUID());
 
         when(repository.existsOverlappingAppointment(request.startsAt(), request.endsAt(), request.providerId()))
                 .thenReturn(false);
@@ -40,6 +41,7 @@ class AppointmentServiceTest {
         var result = service.schedule(request);
 
         assertEquals(ScheduleAppointmentResponse.fromEntity(savedAppointment), result);
+        assertNotNull(result.id());
     }
 
     @Test

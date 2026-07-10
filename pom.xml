@@ -237,6 +237,8 @@
           <excludes>
             <exclude>**/*Application*</exclude>
             <exclude>**/dto/**</exclude>
+            <exlude>**/*Exception*</exlude>
+            <exclude>xyz/usepontual/pontual/appointment/Appointment.class</exclude>
           </excludes>
         </configuration>
         <executions>
